@@ -46,7 +46,7 @@ if (n.int > 1){
         cen.t <- rep(0, n.censor[i])
         for (j in 1:n.censor[i]){
           cen.t[j] <- t.S[lower[i]] +
-          j*(t.S[lower[(i+1)]]-t.S[lower[i]])/(n.censor[i]+1)
+            j*(t.S[lower[(i+1)]]-t.S[lower[i]])/(n.censor[i]+1)
         }
         #Distribute censored observations evenly over time. Find no. censored on each time interval.
         cen[lower[i]:upper[i]] <- hist(cen.t, breaks=t.S[lower[i]:lower[(i+1)]], plot=F)$counts
