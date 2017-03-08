@@ -1,10 +1,10 @@
-setwd("c:/lenvatinib/")
+setwd("C:/PHD/")
 getwd()
 
-digisurvfile <- "survival plot len os.txt"
-nriskfile <- "nrisk len os.txt"
-KMdatafile <- "KMdata len os.txt"
-KMdataIPDfile <- "KMdataIPD len os.txt"
+digisurvfile <- "survival.txt"
+nriskfile <- "nrisk.txt"
+KMdatafile <- "KMdata.txt"
+KMdataIPDfile <- "KMdataIPD.txt"
 tot.events <- "NA"
 arm.id <- 1
 
