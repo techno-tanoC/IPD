@@ -8,12 +8,12 @@ KMdataIPDfile <- "KMdataIPD len os.txt"
 tot.events <- "NA"
 arm.id <- 1
 
-digizeit <- read.table(paste(digisurvfile, sep=""), header=TRUE)
+digizeit <- read.table(paste(digisurvfile, sep = ""), header = TRUE)
 
 t.S <- digizeit[,2]
 S <- digizeit[,3]
 
-pub.risk <- read.table(paste(nriskfile, sep=""), header=TRUE)
+pub.risk <- read.table(paste(nriskfile, sep = ""), header = TRUE)
 t.risk <- pub.risk[,2]
 lower <- pub.risk[,3]
 upper <- pub.risk[,4]
@@ -22,8 +22,8 @@ n.int <- length(n.risk)
 n.t <- upper[n.int]
 
 arm <- rep(arm.id, n.risk[1])
-n.censor <- rep(0, (n.int-1))
-n.hat <- rep(n.risk[1]+1, n.t)
+n.censor <- rep(0, (n.int - 1))
+n.hat <- rep(n.risk[1] + 1, n.t)
 cen <- rep(0, n.t)
 d <- rep(0, n.t)
 KM.hat <- rep(1, n.t)
@@ -33,11 +33,11 @@ sumdL <- 0
 
 if (n.int > 1){
   #Time intervals 1,...,(n.int-1)
-  for (i in 1:(n.int-1)){
+  for (i in 1:(n.int - 1)){
     #First approximation of no. censored on interval i
-    n.censor[i] <- round(n.risk[i]*S[lower[i+1]]/S[lower[i]]- n.risk[i+1])
+    n.censor[i] <- round(n.risk[i] * S[lower[i + 1]] / S[lower[i]] - n.risk[i + 1])
     #Adjust tot. no. censored until n.hat = n.risk at start of interval (i+1)
-    while((n.hat[lower[i+1]] > n.risk[i+1]) || ((n.hat[lower[i+1]] < n.risk[i+1])&&(n.censor[i] > 0))){
+    while((n.hat[lower[i + 1]] > n.risk[i + 1]) || ((n.hat[lower[i + 1]] < n.risk[i + 1]) && (n.censor[i] > 0))){
       if (n.censor[i] <= 0){
         cen[lower[i]:upper[i]] <- 0
         n.censor[i] <- 0
@@ -66,7 +66,7 @@ if (n.int > 1){
         n.hat[k + 1] <- n.hat[k] - d[k] - cen[k]
         if (d[k] != 0) last <- k
       }
-      n.censor[i] <- n.censor[i] + (n.hat[lower[i + 1]]-n.risk[i + 1])
+      n.censor[i] <- n.censor[i] + (n.hat[lower[i + 1]] - n.risk[i + 1])
     }
     if (n.hat[lower[i + 1]] < n.risk[i + 1]) n.risk[i + 1] <- n.hat[lower[i + 1]]
     last.i[(i + 1)] <- last
